@@ -2,6 +2,11 @@
 
 ## To install this app 
   this app is complete, you don't need to install any packages
+## Scripts:
+  npm run build: to build js file
+  npm run jasmine: to test your app using jasmine
+  npm run test: to build js file then, test your app using jasmine
+  npm run start: to start nodemon server in ts file
 ## to use this app :
   this app run on port: 8001
   api endpoint : "/resize" 
