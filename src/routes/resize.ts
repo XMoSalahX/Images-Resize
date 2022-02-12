@@ -1,26 +1,20 @@
 import express from "express";
 const resizes = express.Router();
-import sharp from "sharp";
 var fs = require("fs");
-import check from "../utilities/fun";
-
-resizes.get(`/`, async (req, res) => {
+import _ from "../utilities/fun";
+resizes.get("/resize", async (req, res) => {
   const query = req.query;
   const fileName = query.filename as string;
   const width = query.width as string;
   const height = query.height as string;
-  const newName = query.newname;
-  check(fileName);
+  const newName = query.newname as string;
   if (
     fileName === undefined &&
     width === undefined &&
     height === undefined &&
     newName === undefined
   ) {
-    const callB = check(fileName);
-    if (callB === undefined) {
-      res.send("Error");
-    }
+    res.send("Error");
   } else {
     fs.readFile(`./assets/${newName}.jpg`, function (err: any) {
       if (err !== null) {
@@ -29,9 +23,7 @@ resizes.get(`/`, async (req, res) => {
             res.send("This Image isn't exisit");
           } else {
             console.log(query);
-            sharp(`./assets/${fileName}.jpg`)
-              .resize(parseInt(width), parseInt(height))
-              .toFile(`./assets/${newName}.jpg`);
+            _.sharpFun(fileName, parseInt(width), parseInt(height), newName);
             setTimeout(() => {
               fs.readFile(
                 `./assets/${newName}.jpg`,

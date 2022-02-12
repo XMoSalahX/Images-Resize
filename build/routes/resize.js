@@ -14,24 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const resizes = express_1.default.Router();
-const sharp_1 = __importDefault(require("sharp"));
 var fs = require("fs");
 const fun_1 = __importDefault(require("../utilities/fun"));
-resizes.get(`/`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+resizes.get("/resize", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const query = req.query;
     const fileName = query.filename;
     const width = query.width;
     const height = query.height;
     const newName = query.newname;
-    (0, fun_1.default)(fileName);
     if (fileName === undefined &&
         width === undefined &&
         height === undefined &&
         newName === undefined) {
-        const callB = (0, fun_1.default)(fileName);
-        if (callB === undefined) {
-            res.send("Error");
-        }
+        res.send("Error");
     }
     else {
         fs.readFile(`./assets/${newName}.jpg`, function (err) {
@@ -42,9 +37,7 @@ resizes.get(`/`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     }
                     else {
                         console.log(query);
-                        (0, sharp_1.default)(`./assets/${fileName}.jpg`)
-                            .resize(parseInt(width), parseInt(height))
-                            .toFile(`./assets/${newName}.jpg`);
+                        fun_1.default.sharpFun(fileName, parseInt(width), parseInt(height), newName);
                         setTimeout(() => {
                             fs.readFile(`./assets/${newName}.jpg`, function (err, data) {
                                 if (err)

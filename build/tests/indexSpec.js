@@ -24,6 +24,6 @@ describe("Test endpoint for api", () => {
 });
 describe("Test image Proccess", () => {
     it("Image is valid", () => {
-        expect((0, fun_1.default)("Mohammed")).toEqual("Mohammed");
+        expect(fun_1.default.sharpFun("Mohammed", 200, 100, "salah")).toEqual([200, 100]);
     });
 });
