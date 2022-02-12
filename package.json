@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "build": "npx tsc",
-        "prettier": "prettier ./build/*.js --write",
-        "lint": "eslint --ext ./build/*.js",
+        "prettier": "prettier ./src/*.ts --write",
+        "lint": "eslint --ext ./src/*.ts",
         "start": "nodemon ./src/index.ts --watch",
         "jasmine": "jasmine",
         "test": "npm run build && npm run jasmine"
@@ -26,6 +26,7 @@
     },
     "homepage": "https://github.com/XMoSalahX/Images-Resize#readme",
     "devDependencies": {
+        "@types/express": "^4.17.13",
         "@types/jasmine": "^3.10.3",
         "@types/node": "^17.0.17",
         "@types/sharp": "^0.29.5",
@@ -33,14 +34,13 @@
         "eslint": "^8.8.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
+        "jasmine-spec-reporter": "^7.0.0",
         "prettier": "^2.5.1",
         "typescript": "^4.5.5"
     },
     "dependencies": {
-        "@types/express": "^4.17.13",
         "express": "^4.17.2",
         "jasmine": "^4.0.2",
-        "jasmine-spec-reporter": "^7.0.0",
         "nodemon": "^2.0.15",
         "sharp": "^0.30.1",
         "supertest": "^6.2.2",

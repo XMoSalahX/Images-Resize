@@ -16,31 +16,54 @@ resizes.get("/resize", async (req, res) => {
   ) {
     res.send("Error");
   } else {
-    fs.readFile(`./assets/${newName}.jpg`, function (err: any) {
-      if (err !== null) {
-        fs.readFile(`./assets/${fileName}.jpg`, function (err: any) {
-          if (err !== null) {
-            res.send("This Image isn't exisit");
-          } else {
-            console.log(query);
-            _.sharpFun(fileName, parseInt(width), parseInt(height), newName);
-            setTimeout(() => {
+    if (isNaN(Number(width))) {
+      res.send("Width must be a number");
+    } else if (isNaN(Number(height))) {
+      res.send("Height must be a number");
+    } else {
+      fs.readFile(`./assets/${fileName}.jpg`, function (err: unknown) {
+        if (err !== null) {
+          res.send("This Image isn't exist");
+        } else {
+          fs.readFile(`./assets/${newName}.jpg`, function (err: unknown) {
+            if (err !== null) {
+              fs.readFile(`./assets/${fileName}.jpg`, function (err: unknown) {
+                if (err !== null) {
+                  res.send("This Image isn't exist");
+                } else {
+                  console.log(query);
+                  _.sharpFun(
+                    fileName,
+                    parseInt(width),
+                    parseInt(height),
+                    newName
+                  );
+                  setTimeout(() => {
+                    fs.readFile(
+                      `./assets/${newName}.jpg`,
+                      function (err: any, data: unknown) {
+                        if (err) throw err;
+                        res.end(data);
+                      }
+                    );
+                  }, 1000);
+                }
+              });
+            } else {
               fs.readFile(
                 `./assets/${newName}.jpg`,
-                function (err: any, data: any) {
-                  if (err) throw err;
+                function (err: any, data: unknown) {
                   res.end(data);
                 }
               );
-            }, 1000);
-          }
-        });
-      } else {
-        fs.readFile(`./assets/${newName}.jpg`, function (err: any, data: any) {
-          res.end(data);
-        });
-      }
-    });
+            }
+          });
+        }
+      });
+    }
   }
 });
 export default resizes;
+function isNum(width: string) {
+  throw new Error("Function not implemented.");
+}

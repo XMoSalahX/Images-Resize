@@ -29,31 +29,49 @@ resizes.get("/resize", (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send("Error");
     }
     else {
-        fs.readFile(`./assets/${newName}.jpg`, function (err) {
-            if (err !== null) {
-                fs.readFile(`./assets/${fileName}.jpg`, function (err) {
-                    if (err !== null) {
-                        res.send("This Image isn't exisit");
-                    }
-                    else {
-                        console.log(query);
-                        fun_1.default.sharpFun(fileName, parseInt(width), parseInt(height), newName);
-                        setTimeout(() => {
+        if (isNaN(Number(width))) {
+            res.send("Width must be a number");
+        }
+        else if (isNaN(Number(height))) {
+            res.send("Height must be a number");
+        }
+        else {
+            fs.readFile(`./assets/${fileName}.jpg`, function (err) {
+                if (err !== null) {
+                    res.send("This Image isn't exist");
+                }
+                else {
+                    fs.readFile(`./assets/${newName}.jpg`, function (err) {
+                        if (err !== null) {
+                            fs.readFile(`./assets/${fileName}.jpg`, function (err) {
+                                if (err !== null) {
+                                    res.send("This Image isn't exist");
+                                }
+                                else {
+                                    console.log(query);
+                                    fun_1.default.sharpFun(fileName, parseInt(width), parseInt(height), newName);
+                                    setTimeout(() => {
+                                        fs.readFile(`./assets/${newName}.jpg`, function (err, data) {
+                                            if (err)
+                                                throw err;
+                                            res.end(data);
+                                        });
+                                    }, 1000);
+                                }
+                            });
+                        }
+                        else {
                             fs.readFile(`./assets/${newName}.jpg`, function (err, data) {
-                                if (err)
-                                    throw err;
                                 res.end(data);
                             });
-                        }, 1000);
-                    }
-                });
-            }
-            else {
-                fs.readFile(`./assets/${newName}.jpg`, function (err, data) {
-                    res.end(data);
-                });
-            }
-        });
+                        }
+                    });
+                }
+            });
+        }
     }
 }));
 exports.default = resizes;
+function isNum(width) {
+    throw new Error("Function not implemented.");
+}
