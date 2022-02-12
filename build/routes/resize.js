@@ -28,7 +28,10 @@ resizes.get(`/`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         width === undefined &&
         height === undefined &&
         newName === undefined) {
-        res.send("Error");
+        const callB = (0, fun_1.default)(fileName);
+        if (callB === undefined) {
+            res.send("Error");
+        }
     }
     else {
         fs.readFile(`./assets/${newName}.jpg`, function (err) {
