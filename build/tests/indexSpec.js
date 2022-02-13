@@ -18,7 +18,7 @@ const fun_1 = __importDefault(require("../utilities/fun"));
 const request = (0, supertest_1.default)(index_1.default);
 describe("Test endpoint for api", () => {
     it("gets the api endpoint for Image resize", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get("/resize");
+        const response = yield request.get("/resize?filename=santamonica&width=600&height=100");
         expect(response.status).toBe(200);
     }));
 });

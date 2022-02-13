@@ -4,7 +4,9 @@ import _ from "../utilities/fun";
 const request = supertest(app);
 describe("Test endpoint for api", () => {
   it("gets the api endpoint for Image resize", async () => {
-    const response = await request.get("/resize");
+    const response = await request.get(
+      "/resize?filename=santamonica&width=600&height=100"
+    );
     expect(response.status).toBe(200);
   });
 });

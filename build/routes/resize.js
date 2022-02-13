@@ -21,7 +21,7 @@ resizes.get("/resize", (req, res) => __awaiter(void 0, void 0, void 0, function*
     const fileName = query.filename;
     const width = query.width;
     const height = query.height;
-    const newName = query.newname;
+    const newName = `${fileName}-${width}-${height}`;
     if (fileName === undefined &&
         width === undefined &&
         height === undefined &&
@@ -44,20 +44,22 @@ resizes.get("/resize", (req, res) => __awaiter(void 0, void 0, void 0, function*
                     fs.readFile(`./assets/${newName}.jpg`, function (err) {
                         if (err !== null) {
                             fs.readFile(`./assets/${fileName}.jpg`, function (err) {
-                                if (err !== null) {
-                                    res.send("This Image isn't exist");
-                                }
-                                else {
-                                    console.log(query);
-                                    fun_1.default.sharpFun(fileName, parseInt(width), parseInt(height), newName);
-                                    setTimeout(() => {
-                                        fs.readFile(`./assets/${newName}.jpg`, function (err, data) {
-                                            if (err)
-                                                throw err;
-                                            res.end(data);
-                                        });
-                                    }, 1000);
-                                }
+                                return __awaiter(this, void 0, void 0, function* () {
+                                    if (err !== null) {
+                                        res.send("This Image isn't exist");
+                                    }
+                                    else {
+                                        console.log(query);
+                                        (() => __awaiter(this, void 0, void 0, function* () {
+                                            yield fun_1.default.sharpInAction(fileName, parseInt(width), parseInt(height), newName);
+                                            yield fs.readFile(`./assets/${newName}.jpg`, function (err, data) {
+                                                if (err)
+                                                    throw err;
+                                                res.end(data);
+                                            });
+                                        }))();
+                                    }
+                                });
                             });
                         }
                         else {

@@ -2,12 +2,12 @@ import express from "express";
 const resizes = express.Router();
 var fs = require("fs");
 import _ from "../utilities/fun";
-resizes.get("/resize", async (req, res) => {
+resizes.get("/resize", async (req: express.Request, res: express.Response) => {
   const query = req.query;
   const fileName = query.filename as string;
   const width = query.width as string;
   const height = query.height as string;
-  const newName = query.newname as string;
+  const newName: string = `${fileName}-${width}-${height}`;
   if (
     fileName === undefined &&
     width === undefined &&
@@ -27,32 +27,35 @@ resizes.get("/resize", async (req, res) => {
         } else {
           fs.readFile(`./assets/${newName}.jpg`, function (err: unknown) {
             if (err !== null) {
-              fs.readFile(`./assets/${fileName}.jpg`, function (err: unknown) {
-                if (err !== null) {
-                  res.send("This Image isn't exist");
-                } else {
-                  console.log(query);
-                  _.sharpFun(
-                    fileName,
-                    parseInt(width),
-                    parseInt(height),
-                    newName
-                  );
-                  setTimeout(() => {
-                    fs.readFile(
-                      `./assets/${newName}.jpg`,
-                      function (err: any, data: unknown) {
-                        if (err) throw err;
-                        res.end(data);
-                      }
-                    );
-                  }, 1000);
+              fs.readFile(
+                `./assets/${fileName}.jpg`,
+                async function (err: unknown) {
+                  if (err !== null) {
+                    res.send("This Image isn't exist");
+                  } else {
+                    console.log(query);
+                    (async () => {
+                      await _.sharpInAction(
+                        fileName,
+                        parseInt(width),
+                        parseInt(height),
+                        newName
+                      );
+                      await fs.readFile(
+                        `./assets/${newName}.jpg`,
+                        function (err: unknown, data: unknown) {
+                          if (err) throw err;
+                          res.end(data);
+                        }
+                      );
+                    })();
+                  }
                 }
-              });
+              );
             } else {
               fs.readFile(
                 `./assets/${newName}.jpg`,
-                function (err: any, data: unknown) {
+                function (err: unknown, data: unknown) {
                   res.end(data);
                 }
               );
