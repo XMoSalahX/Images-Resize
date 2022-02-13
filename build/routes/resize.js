@@ -36,40 +36,67 @@ resizes.get("/resize", (req, res) => __awaiter(void 0, void 0, void 0, function*
             res.send("Height must be a number");
         }
         else {
-            fs.readFile(`./assets/${fileName}.jpg`, function (err) {
-                if (err !== null) {
-                    res.send("This Image isn't exist");
+            fs.readFile(`./assets/${newName}.jpg`, function (err, data) {
+                if (err === null) {
+                    res.end(data);
                 }
                 else {
-                    fs.readFile(`./assets/${newName}.jpg`, function (err) {
-                        if (err !== null) {
-                            fs.readFile(`./assets/${fileName}.jpg`, function (err) {
-                                return __awaiter(this, void 0, void 0, function* () {
-                                    if (err !== null) {
-                                        res.send("This Image isn't exist");
-                                    }
-                                    else {
-                                        console.log(query);
-                                        (() => __awaiter(this, void 0, void 0, function* () {
-                                            yield fun_1.default.sharpInAction(fileName, parseInt(width), parseInt(height), newName);
-                                            yield fs.readFile(`./assets/${newName}.jpg`, function (err, data) {
-                                                if (err)
-                                                    throw err;
-                                                res.end(data);
-                                            });
-                                        }))();
-                                    }
-                                });
-                            });
-                        }
-                        else {
-                            fs.readFile(`./assets/${newName}.jpg`, function (err, data) {
+                    fs.readFile(`./assets/${fileName}.jpg`, function (err, data) {
+                        return __awaiter(this, void 0, void 0, function* () {
+                            if (err === null) {
+                                console.log(query);
+                                yield fun_1.default.sharpInAction(fileName, parseInt(width), parseInt(height), newName);
                                 res.end(data);
-                            });
-                        }
+                            }
+                            else {
+                                res.send("This Image isn't exist");
+                            }
+                        });
                     });
                 }
             });
+            // fs.readFile(`./assets/${fileName}.jpg`, function (err: unknown) {
+            //   if (err !== null) {
+            //     res.send("This Image isn't exist");
+            //   } else {
+            //     fs.readFile(`./assets/${newName}.jpg`, function (err: unknown) {
+            //       if (err !== null) {
+            //         fs.readFile(
+            //           `./assets/${fileName}.jpg`,
+            //           async function (err: unknown) {
+            //             if (err !== null) {
+            //               res.send("This Image isn't exist");
+            //             } else {
+            //               console.log(query);
+            //               (async () => {
+            //                 await _.sharpInAction(
+            //                   fileName,
+            //                   parseInt(width),
+            //                   parseInt(height),
+            //                   newName
+            //                 );
+            //                 await fs.readFile(
+            //                   `./assets/${newName}.jpg`,
+            //                   function (err: unknown, data: unknown) {
+            //                     if (err) throw err;
+            //                     res.end(data);
+            //                   }
+            //                 );
+            //               })();
+            //             }
+            //           }
+            //         );
+            //       } else {
+            //         fs.readFile(
+            //           `./assets/${newName}.jpg`,
+            //           function (err: unknown, data: unknown) {
+            //             res.end(data);
+            //           }
+            //         );
+            //       }
+            //     });
+            //   }
+            // });
         }
     }
 }));

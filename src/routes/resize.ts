@@ -21,48 +21,32 @@ resizes.get("/resize", async (req: express.Request, res: express.Response) => {
     } else if (isNaN(Number(height))) {
       res.send("Height must be a number");
     } else {
-      fs.readFile(`./assets/${fileName}.jpg`, function (err: unknown) {
-        if (err !== null) {
-          res.send("This Image isn't exist");
-        } else {
-          fs.readFile(`./assets/${newName}.jpg`, function (err: unknown) {
-            if (err !== null) {
-              fs.readFile(
-                `./assets/${fileName}.jpg`,
-                async function (err: unknown) {
-                  if (err !== null) {
-                    res.send("This Image isn't exist");
-                  } else {
-                    console.log(query);
-                    (async () => {
-                      await _.sharpInAction(
-                        fileName,
-                        parseInt(width),
-                        parseInt(height),
-                        newName
-                      );
-                      await fs.readFile(
-                        `./assets/${newName}.jpg`,
-                        function (err: unknown, data: unknown) {
-                          if (err) throw err;
-                          res.end(data);
-                        }
-                      );
-                    })();
-                  }
-                }
-              );
-            } else {
-              fs.readFile(
-                `./assets/${newName}.jpg`,
-                function (err: unknown, data: unknown) {
+      fs.readFile(
+        `./assets/${newName}.jpg`,
+        function (err: unknown, data: unknown) {
+          if (err === null) {
+            res.end(data);
+          } else {
+            fs.readFile(
+              `./assets/${fileName}.jpg`,
+              async function (err: unknown, data: unknown) {
+                if (err === null) {
+                  console.log(query);
+                  await _.sharpInAction(
+                    fileName,
+                    parseInt(width),
+                    parseInt(height),
+                    newName
+                  );
                   res.end(data);
+                } else {
+                  res.send("This Image isn't exist");
                 }
-              );
-            }
-          });
+              }
+            );
+          }
         }
-      });
+      );
     }
   }
 });
