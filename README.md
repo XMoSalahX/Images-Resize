@@ -1,4 +1,5 @@
 # Images-Resize
+API aims to re-size the image in proportion to the Client Side and so as not to cause a waste of server space.
 
 ## To install this app 
   this app is complete, you don't need to install any packages
