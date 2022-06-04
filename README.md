@@ -56,5 +56,11 @@ link with query string:
 **filename:** file name on the server that you want to change  
 **width:** the width you want to be  
 **height:** the width you want to be  
+
+## App Dependencies
+
+- Node JS `v18.1.0`
+- Express `v4.17.2`
+- Sharp `v0.30.1`
     
   
