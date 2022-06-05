@@ -39,22 +39,26 @@ To clone this application: `git clone https://github.com/XMoSalahX/Images-Resize
 Go to this path `cd Images-Resize` and run the following command: `npm install`
 
 ## Scripts:
-To build js file: `npm run build`
-To test your app using jasmine: `npm run jasmine`
-To build js file then, test your app using jasmine: `npm run test`
-To start nodemon server in ts file: `npm run start`
+- To build js file: `npm run build`  
+- To test your app using jasmine: `npm run jasmine`  
+- To build js file then, test your app using jasmine: `npm run test`  
+- To start nodemon server in ts file: `npm run start`  
 
-## to use this app:
+## To use this app:
 
 This app run on port: *8001*
 API endpoint : *"/resize"*    
 Link with query string:  
 *http://localhost:8001/resize?filename=test&width=800&height=400* 
-	
-### you should to write qurey string in link: 
 
-*filename:* file name on the server that you want to change  
-*width:* the width you want to be  
-*height:* the width you want to be  
-    
-  
+### You should to write qurey string in link: 
+
+**filename:** file name on the server that you want to change  
+**width:** the width you want to be  
+**height:** the width you want to be  
+
+## App Dependencies
+
+Node JS `v18.1.0`
+Express `v4.17.2`
+Sharp `v0.30.1`
