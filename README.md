@@ -59,6 +59,6 @@ Link with query string:
 
 ## App Dependencies
 
-Node JS `v18.1.0`
-Express `v4.17.2`
-Sharp `v0.30.1`
+Node JS `v18.1.0`  
+Express `v4.17.2`  
+Sharp `v0.30.1`  
