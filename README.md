@@ -46,9 +46,9 @@ To start nodemon server in ts file: `npm run start`
 
 ## to use this app:
 
-this app run on port: *8001*
-api endpoint : *"/resize"*    
-link with query string:  
+This app run on port: *8001*
+API endpoint : *"/resize"*    
+Link with query string:  
 *http://localhost:8001/resize?filename=test&width=800&height=400* 
 	
 ### you should to write qurey string in link: 
