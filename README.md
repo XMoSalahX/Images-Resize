@@ -46,7 +46,7 @@ Go to this path `cd Images-Resize` and run the following command: `npm install`
 
 ## To use this app:
 
-This app run on port: **8001**
+This app run on port: **8001**  
 API endpoint : **"/resize"**    
 Link with query string:  
 **http://localhost:8001/resize?filename=test&width=800&height=400** 
